@@ -1,11 +1,11 @@
 <?php
 
-use App\RelevantMedia\Models\Role;
 use Illuminate\Database\Seeder;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class RolesTableSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *

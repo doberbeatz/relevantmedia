@@ -41,6 +41,18 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+$app->bind(App\RelevantMedia\Contracts\Captcha::class, function () {
+    $captchaType = env('CAPTCHA_TYPE', 'text');
+    switch($captchaType) {
+        case 'text':
+            return new App\RelevantMedia\Services\Captcha\TextCaptcha;
+        case 'pictures':
+            return new App\RelevantMedia\Services\Captcha\PicturesCaptcha;
+        default:
+            throw Exception('Captcha type ' . $captchaType . ' are not exist');
+    }
+});
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application
@@ -51,5 +63,4 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
-
 return $app;

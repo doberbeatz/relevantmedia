@@ -2,8 +2,18 @@
 
 namespace App;
 
+use App\RelevantMedia\Models\Role;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package App
+ *
+ * @property array $fillable    Fillable properties list
+ * @property string $name       User Name
+ * @property string $email      User Email
+ * @property int $role_id       Role Id
+ */
 class User extends Authenticatable
 {
     /**
@@ -31,5 +41,32 @@ class User extends Authenticatable
     public function role()
     {
         return $this->hasOne(Role::class);
+    }
+
+    /**
+     * Return User's Name
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set Role to User
+     * @param $roleKey
+     * @return User|bool
+     */
+    public function setRole($roleKey)
+    {
+        $role = Role::where('key', $roleKey)->first();
+        if ($role) {
+            $this->role_id = $role->getKey();
+            $this->save();
+
+            return $this;
+        }
+
+        return false;
     }
 }
