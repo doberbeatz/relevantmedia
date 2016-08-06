@@ -16,10 +16,16 @@ class Captcha
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (app('App\RelevantMedia\Contracts\Captcha')->checkCaptcha()) {
+        if (app('App\RelevantMedia\Contracts\Captcha')->checkCaptcha($request->get('captcha'))) {
             return $next($request);
         }
 
-        return redirect()->back()->withInput();
+        $validator = \Validator::make($request->all(), ['captcha'=>'required']);
+        $validator->errors()->add('captcha', 'Wrong captcha!');
+
+        return redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput();
     }
 }

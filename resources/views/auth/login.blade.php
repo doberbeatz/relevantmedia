@@ -5,16 +5,15 @@
     <div class="col-sm-offset-4 col-sm-4">
         <h1 class="text-center">Login</h1>
         <hr>
-        @foreach($errors as $error)
-            <div class="alert alert-danger" role="alert">{{ $error }}</div>
-        @endforeach
+
+        @include('partials.errors', ['errors'=>$errors])
 
         <form action="{{ route('login') }}" method="post" class="form-horizontal">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">
                 <div class="col-sm-12">
-                    <input type="email" name="email" class="form-control" placeholder="Name">
+                    <input type="email" name="email" class="form-control" placeholder="Email">
                 </div>
             </div>
             <div class="form-group">

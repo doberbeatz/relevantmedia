@@ -11,13 +11,13 @@ class TextCaptcha extends AbstractCaptcha
      * @inheritDoc
      */
     public function getCaptcha() {
-        return captcha_src();
+        return view('captcha.text', ['img_html' => captcha_img()]);
     }
 
     /**
      * @inheritDoc
      */
     public function checkCaptcha($input) {
-        captcha_check($input);
+        return captcha_check($input);
     }
 }

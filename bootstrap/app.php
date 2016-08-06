@@ -49,7 +49,7 @@ $app->bind(App\RelevantMedia\Contracts\Captcha::class, function () {
         case 'pictures':
             return new App\RelevantMedia\Services\Captcha\PicturesCaptcha;
         default:
-            throw Exception('Captcha type ' . $captchaType . ' are not exist');
+            throw new App\RelevantMedia\Exceptions\CaptchaException('Captcha type ' . $captchaType . ' are not exist');
     }
 });
 

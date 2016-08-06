@@ -12,7 +12,10 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/login', ['as' => 'login', 'uses' => 'AuthController@postLogin']);
     // Registration page
     Route::get('/register', ['as' => 'register', 'uses' => 'AuthController@getRegister']);
-    Route::post('/register', ['as' => 'register', 'uses' => 'AuthController@postRegister']);
+    Route::post('/register', [
+        'as' => 'register', 'uses' => 'AuthController@postRegister',
+        'middleware' => 'captcha',
+    ]);
 });
 
 Route::group(['middleware' => 'auth'], function () {
