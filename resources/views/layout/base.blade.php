@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Relevant Media</title>
+        <title>Relevant Jobs</title>
 
         <!-- Bootstrap -->
         <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +35,17 @@
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         @if(Auth::check())
-                            <li><a href="{{ route('profile') }}">Profile</a></li>
+                            @if(Auth::user()->isAdmin())
+                                @inject('jobs', 'App\RelevantMedia\Models\Job')
+                                <li>
+                                    <a href="{{ route('admin.index') }}">Admin
+                                        {!! $jobs->byUnmoderated()->count()?
+                                            '<span class="badge">'.$jobs->byUnmoderated()->count().'</span>':'' !!}
+                                    </a>
+                                </li>
+                            @else
+                                <li><a href="{{ route('profile') }}">Profile</a></li>
+                            @endif
                             <li><a href="{{ route('logout') }}">Logout</a></li>
                         @else
                             <li><a href="{{ route('login') }}">Login</a></li>

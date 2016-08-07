@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Mailers\UserMailer;
+use App\RelevantMedia\Models\Role;
 use App\User;
-use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -30,6 +31,21 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+
+    /**
+     * @var UserMailer
+     */
+    protected $mailer;
+
+    /**
+     * AuthController constructor.
+     * @param UserMailer $userMailer
+     */
+    public function __construct(UserMailer $userMailer)
+    {
+        $this->mailer = $userMailer;
+    }
+
 
     /**
      * Get a validator for an incoming registration request.
@@ -59,7 +75,8 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-        $user->setRole('employer');
+        $user->setRole(Role::EMPLOYER);
+        $this->mailer->welcome($user);
 
         return $user;
     }

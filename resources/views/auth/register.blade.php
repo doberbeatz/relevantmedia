@@ -9,27 +9,32 @@
 
         @include('partials.errors', ['errors'=>$errors])
 
-        <form action="{{ route('register') }}" method="post" class="form-horizontal">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        {!! Form::open(['route' => 'register',
+            'class' => 'form-horizontal'
+            ]) !!}
+
+            {!! Form::token() !!}
 
             <div class="form-group">
                 <div class="col-sm-12">
-                    <input type="text" class="form-control" name="name" placeholder="Name">
+                    {!! Form::text('name', old('name'),
+                                    ['class'=>'form-control','placeholder'=>'Name']) !!}
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <input type="email" class="form-control" name="email" placeholder="Email">
+                    {!! Form::email('email', old('email'),
+                                    ['class'=>'form-control','placeholder'=>'Email']) !!}
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <input type="password" class="form-control" name="password" placeholder="Password">
+                    {!! Form::password('password', ['class'=>'form-control','placeholder'=>'Password']) !!}
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <input type="password" class="form-control" name="password_confirmation" placeholder="Password confirm">
+                    {!! Form::password('password_confirmation', ['class'=>'form-control','placeholder'=>'Password confirm']) !!}
                 </div>
             </div>
 
@@ -41,6 +46,6 @@
                     <button type="submit" class="btn btn-default">Register</button>
                 </div>
             </div>
-        </form>
+        {!! Form::close() !!}
     </div>
 @endsection

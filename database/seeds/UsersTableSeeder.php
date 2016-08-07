@@ -1,5 +1,6 @@
 <?php
 
+use App\RelevantMedia\Models\Role;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
@@ -19,10 +20,9 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@example.com',
                 'password' => password_hash('123456', PASSWORD_DEFAULT),
+                'role_id' => Role::ADMIN,
                 'created_at' => Carbon::now()
             ]
         ]);
-        $user = User::where('email', 'admin@example.com')->first();
-        $user->setRole('admin');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\RelevantMedia\Models\Role;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,8 +15,14 @@ class RolesTableSeeder extends Seeder
     public function run()
     {
         DB::table('roles')->insert([
-            ['key' => 'admin', 'name' => 'Admin'],
-            ['key' => 'employer', 'name' => 'Employer'],
+            [
+                'role_id' => Role::ADMIN,
+                'name' => 'Admin'
+            ],
+            [
+                'role_id' => Role::EMPLOYER,
+                'name' => 'Employer'
+            ],
         ]);
     }
 }
