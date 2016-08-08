@@ -14,7 +14,7 @@ interface Captcha
     public function getCaptcha();
 
     /**
-     * Check if captc
+     * Check if captcha is valid
      * @param $input
      * @return bool
      */
